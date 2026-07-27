@@ -1,0 +1,229 @@
+{
+  "@@locale": "en",
+  "goodMorning": "Good morning ☀️",
+  "goodAfternoon": "Good afternoon 🌤️",
+  "goodEvening": "Good evening 🌙",
+  "startLearning": "Start Learning",
+  "startLearningSub": "{count} new words ready · Tap to begin",
+  "@startLearningSub": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "todaySession": "Today's session",
+  "practiceQuiz": "Practice Quiz",
+  "practiceQuizSub": "Test what you know",
+  "aiConversation": "AI Conversation",
+  "aiConversationSub": "Chat in your target language",
+  "dailyStreak": "Daily Streak",
+  "keepLearning": "Keep learning every day!",
+  "todayProgress": "Today's Progress",
+  "wordsOf": "{done} / {total} words",
+  "@wordsOf": {
+    "placeholders": {
+      "done": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "startFirstSession": "Start your first session to track progress",
+  "navLearn": "Learn",
+  "navPractice": "Practice",
+  "navProgress": "Progress",
+  "wordOf": "Word {current} of {total}",
+  "@wordOf": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "howWellDidYouKnow": "How well did you know this?",
+  "forgot": "Forgot",
+  "hard": "Hard",
+  "easy": "Easy",
+  "learned5Words": "You learned 5 words today!",
+  "greatWork": "Great work — keep it up!",
+  "startQuiz": "Start Quiz",
+  "newSession": "New Session",
+  "backToHome": "Back to Home",
+  "tapCorrectPhoto": "Tap the correct photo",
+  "typeWordHint": "Type the word...",
+  "selectCorrectTranslation": "Select the correct translation",
+  "check": "Check",
+  "correctFeedback": "Correct!",
+  "incorrectFeedback": "Not quite!",
+  "correctAnswer": "Correct answer: {word}",
+  "@correctAnswer": {
+    "placeholders": {
+      "word": { "type": "String" }
+    }
+  },
+  "seeResults": "See Results",
+  "next": "Next",
+  "quizMessage": "{score, select, 5{Perfect score!} 4{Great job!} 3{Good effort!} other{Keep practising!}}",
+  "@quizMessage": {
+    "placeholders": {
+      "score": { "type": "String" }
+    }
+  },
+  "progressTitle": "Progress",
+  "levelAndXp": "Level & XP",
+  "streakLabel": "Streak",
+  "vocabularyLabel": "Vocabulary",
+  "wordsInLibrary": "words\nin library",
+  "topicsLabel": "Topics",
+  "nouns": "Nouns",
+  "verbs": "Verbs",
+  "adjectives": "Adjectives",
+  "other": "Other",
+  "currentStreakLabel": "Current\nStreak",
+  "longestStreakLabel": "Longest\nStreak",
+  "wordsThisWeek": "Words\nThis Week",
+  "onbNativeLangTitle": "What's your native language?",
+  "onbNativeLangSubtitle": "We'll personalise your experience around it.",
+  "continueBtn": "Continue",
+  "onbNameTitle": "What's your name?",
+  "onbNameSubtitle": "We'll use this to personalise your experience.",
+  "onbNameHint": "Your first name",
+  "onbTargetTitle": "Which language do you want to learn?",
+  "onbTargetSubtitle": "Pick the language you'd like to master.",
+  "onbGoalTitle": "What's your main learning goal?",
+  "onbGoalSubtitle": "This helps us tailor vocabulary to your needs.",
+  "onbTimeTitle": "How much time can you study daily?",
+  "onbTimeSubtitle": "Consistency beats intensity — any amount is great!",
+  "onbAccountTitle": "Almost there!\nCreate your account.",
+  "onbAccountSubtitle": "Save your progress and start your journey.",
+  "onbCreateAccount": "Create Account",
+  "onbAlreadyHaveAccount": "Already have an account? ",
+  "onbSignIn": "Sign in",
+  "emailPlaceholder": "Email address",
+  "passwordPlaceholder": "Password",
+
+  "goalTravel": "Travel",
+  "goalWork": "Work",
+  "goalEducation": "Education",
+  "goalPersonal": "Personal Interest",
+
+  "goalDescTravel": "Navigate & connect wherever you go",
+  "goalDescWork": "Boost your career internationally",
+  "goalDescEducation": "Succeed in academia & research",
+  "goalDescPersonal": "Explore a passion at your own pace",
+
+  "timeDesc5": "Quick daily habit",
+  "timeDesc10": "Steady progress",
+  "timeDesc15": "Solid commitment",
+  "timeDesc30": "Serious learner",
+
+  "wordsPerDay": "~{count} words/day",
+  "@wordsPerDay": {
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+
+  "backBtn": "Back",
+  
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+
+  "topicFood": "Food",
+  "topicDailyLife": "Daily Life",
+  "topicHome": "Home",
+  "topicTravel": "Travel",
+  "topicNature": "Nature",
+  "topicHealth": "Health",
+  "topicWork": "Work",
+
+  "learningLang": "Learning {lang}",
+  "@learningLang": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+
+  "dayStreak": "{count} day streak",
+  "@dayStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+
+  "tapToSeeTranslation": "Tap to see translation",
+  "posNoun": "Noun",
+  "posVerb": "Verb",
+  "posAdjective": "Adjective",
+  "posAdverb": "Adverb",
+  "posPhrase": "Phrase",
+  "topicOther": "Other",
+  "lang_en": "English",
+  "lang_tr": "Turkish",
+  "lang_nl": "Dutch",
+  "lang_de": "German",
+  "lang_fr": "French",
+  "settings": "Settings",
+  "welcomeBack": "Welcome back!",
+  "signInSubtitle": "Sign in to continue your learning journey.",
+  "signIn": "Sign In",
+  "signOut": "Sign Out",
+  "learnTarget": "Learning Language",
+  "changeLanguage": "Change",
+  "validationEnterEmail": "Please enter your email.",
+  "validationValidEmail": "Please enter a valid email.",
+  "validationEnterPassword": "Please enter a password.",
+  "validationPasswordLength": "Password must be at least 6 characters.",
+  "errorLoadingSettings": "Error loading settings",
+  "signedInAs": "Signed in as",
+  "defaultLearnerName": "Learner",
+  "levelLabel": "Level {level}",
+  "@levelLabel": {
+    "placeholders": {
+      "level": { "type": "int" }
+    }
+  },
+  "xpToNextLevel": "{xp} XP to Level {next}",
+  "@xpToNextLevel": {
+    "placeholders": {
+      "xp": { "type": "int" },
+      "next": { "type": "int" }
+    }
+  },
+  "comingSoon": "Coming soon!",
+  "comingSoonDesc": "Listening & speaking exercises are on the way.",
+  "practiceTitle": "Practice",
+  "photoMatch": "📸 Photo Match",
+  "writeIt": "✍️ Write It",
+  "multipleChoice": "🔤 Multiple Choice",
+  "howDoYouSay": "How do you say…",
+  "inLanguage": "in {lang}?",
+  "@inLanguage": {
+    "placeholders": {
+      "lang": { "type": "String" }
+    }
+  },
+  "weekdays": "M,T,W,T,F,S,S",
+  "tabRegister": "Register",
+  "tabSignIn": "Sign In",
+  "lastNameHint": "Last name",
+  "dailyTime": "Daily Time",
+  "changeTime": "Change",
+  "minutesSuffix": "{min} min",
+  "@minutesSuffix": {
+    "placeholders": {
+      "min": { "type": "int" }
+    }
+  }
+}
