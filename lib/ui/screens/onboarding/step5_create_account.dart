@@ -81,7 +81,9 @@ class _Step5CreateAccountState extends ConsumerState<Step5CreateAccount> {
           }
         }
         ref.invalidate(userLangPrefsProvider);
-        context.go(AppRoutes.home);
+        if (mounted) {
+          context.go(AppRoutes.home);
+        }
       }
     }
   }

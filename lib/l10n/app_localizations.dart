@@ -542,6 +542,12 @@ abstract class AppLocalizations {
   /// **'Personal Interest'**
   String get goalPersonal;
 
+  /// No description provided for @goalVisaExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Spouse Visa Prep'**
+  String get goalVisaExam;
+
   /// No description provided for @goalDescTravel.
   ///
   /// In en, this message translates to:
@@ -565,6 +571,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore a passion at your own pace'**
   String get goalDescPersonal;
+
+  /// No description provided for @goalDescVisaExam.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing for a language exam for a spouse visa to Germany or the Netherlands'**
+  String get goalDescVisaExam;
 
   /// No description provided for @timeDesc5.
   ///

@@ -26,14 +26,14 @@ final userStatsProvider = StreamProvider<UserStatsModel>((ref) {
     
     var stats = UserStatsModel.fromMap(doc.data()!, dailyMinutes: dailyMinutes);
     
-    // Check if we need to reset todayWordsLearned
+    // Check if we need to reset todayWordsLearned for a new day.
+    // Guard uses lastResetDate (not lastActivityDate) so the condition becomes
+    // false after the first write and the stream mapper never fires again for
+    // the same day. lastActivityDate is reserved for streak counting only.
     final todayStr = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    if (stats.lastActivityDate != todayStr && stats.todayWordsLearned > 0) {
-      // It's a new day, but we haven't written to Firestore yet.
-      // We'll return a copy with 0 for the UI immediately, and the 
-      // actual Firestore write will happen when they learn a word or complete a session.
-      // Wait, the prompt says "Reset todayWordsLearned to 0 each new day (check on app startup...)".
-      // We can also fire-and-forget a reset to Firestore here if we want.
+    if (stats.lastResetDate != todayStr && stats.todayWordsLearned > 0) {
+      // Return a 0-count copy immediately for the UI, and kick off the
+      // Firestore write (which will also stamp lastResetDate = today).
       Future.microtask(() {
         ref.read(userStatsServiceProvider).resetDailyWordsLearnedIfNewDay();
       });
@@ -61,23 +61,24 @@ class UserStatsService {
   Future<void> resetDailyWordsLearnedIfNewDay() async {
     final uid = _uid;
     if (uid == null) return;
-    
+
     final docRef = _firestore.collection('users').doc(uid);
     await _firestore.runTransaction((transaction) async {
       final snapshot = await transaction.get(docRef);
       if (!snapshot.exists) return;
-      
+
       final data = snapshot.data();
       if (data == null) return;
-      
-      final lastDate = data['lastActivityDate'] as String?;
+
+      final lastReset = data['lastResetDate'] as String?;
       final wordsLearned = data['todayWordsLearned'] as int? ?? 0;
       final dailyMinutes = data['dailyMinutes'] as int? ?? 10;
-      
-      if (lastDate != _todayStr) {
+
+      if (lastReset != _todayStr) {
         transaction.set(docRef, {
           if (wordsLearned > 0) 'todayWordsLearned': 0,
           'todayGoal': wordsPerSession(dailyMinutes),
+          'lastResetDate': _todayStr, // stamps today so the loop stops
         }, SetOptions(merge: true));
       }
     });

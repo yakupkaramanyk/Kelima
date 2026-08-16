@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kelima/data/models/onboarding_data.dart';
 
@@ -41,7 +42,7 @@ class UserRepository {
     final doc = await _usersCollection.doc(uid).get();
     if (!doc.exists || doc.data() == null) return null;
     final rawData = doc.data()!;
-    print('RAW FIRESTORE DATA: $rawData');
+    debugPrint('RAW FIRESTORE DATA: $rawData');
     return OnboardingData.fromFirestore(rawData);
   }
 }

@@ -252,6 +252,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get goalPersonal => 'Kişisel İlgi';
 
   @override
+  String get goalVisaExam => 'Eş/Aile Vizesi Hazırlığı';
+
+  @override
   String get goalDescTravel => 'Nereye gidersen git, iletişim kur';
 
   @override
@@ -262,6 +265,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get goalDescPersonal => 'Kendi hızında bir tutkuyu keşfet';
+
+  @override
+  String get goalDescVisaExam =>
+      'Almanya veya Hollanda\'ya eş vizesi için dil sınavına hazırlanıyorum';
 
   @override
   String get timeDesc5 => 'Hızlı günlük alışkanlık';

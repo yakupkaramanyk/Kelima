@@ -17,6 +17,20 @@ class AppColors {
   static const Color border = Color(0xFFE4EAF4);
   static const Color error = Color(0xFFE05C6D);
   static const Color divider = Color(0xFFF0F4FA);
+
+  // ── Brand v2 (Kelima kimlik konsepti — bracket mark) ──
+  // Not yet wired into AppTheme.light. Used by screens as they migrate individually.
+  static const Color ink = Color(0xFF1B2430);
+  static const Color paper = Color(0xFFFBF8F2);
+  static const Color paperAlt = Color(0xFFF3EEE3);
+  static const Color amber = Color(0xFFF2A93B);
+  static const Color amberDark = Color(0xFF8A5A12);
+  static const Color sage = Color(0xFF4C7A6B);
+  static const Color sageLight = Color(0xFFE3EEE9);
+  static const Color sageDark = Color(0xFF2C4A40);
+  static const Color brick = Color(0xFFB5473A);
+  static const Color brickLight = Color(0xFFF6E3E0);
+  static const Color brandBorder = Color(0xFFE4DECF);
 }
 
 class AppTheme {
@@ -124,4 +138,44 @@ class AppTheme {
       ),
     );
   }
+}
+
+class AppTypography {
+  AppTypography._();
+
+  /// Fraunces — the word itself, headlines, wordmark. Use sparingly, for display only.
+  static TextStyle display({
+    double fontSize = 32,
+    FontWeight fontWeight = FontWeight.w500,
+    Color? color,
+  }) =>
+      GoogleFonts.fraunces(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color ?? AppColors.ink,
+      );
+
+  /// Inter — UI chrome, translations, body copy.
+  static TextStyle body({
+    double fontSize = 16,
+    FontWeight fontWeight = FontWeight.w400,
+    Color? color,
+  }) =>
+      GoogleFonts.inter(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color ?? AppColors.ink,
+      );
+
+  /// IBM Plex Mono — category tags, small labels, bracket-style captions.
+  static TextStyle mono({
+    double fontSize = 12,
+    FontWeight fontWeight = FontWeight.w500,
+    Color? color,
+  }) =>
+      GoogleFonts.ibmPlexMono(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: color ?? AppColors.sageDark,
+      );
 }

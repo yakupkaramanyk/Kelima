@@ -20,6 +20,7 @@ class AppConstants {
     GoalOption(code: 'work', label: 'Work', emoji: '💼'),
     GoalOption(code: 'education', label: 'Education', emoji: '🎓'),
     GoalOption(code: 'personal', label: 'Personal Interest', emoji: '❤️'),
+    GoalOption(code: 'visa_exam', label: 'Spouse Visa Prep', emoji: '🛂'),
   ];
 
   // ──────────────────────────────────────────

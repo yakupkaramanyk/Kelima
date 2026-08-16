@@ -254,6 +254,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goalPersonal => 'Personal Interest';
 
   @override
+  String get goalVisaExam => 'Spouse Visa Prep';
+
+  @override
   String get goalDescTravel => 'Navigate & connect wherever you go';
 
   @override
@@ -264,6 +267,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goalDescPersonal => 'Explore a passion at your own pace';
+
+  @override
+  String get goalDescVisaExam =>
+      'Preparing for a language exam for a spouse visa to Germany or the Netherlands';
 
   @override
   String get timeDesc5 => 'Quick daily habit';

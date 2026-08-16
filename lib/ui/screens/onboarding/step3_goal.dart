@@ -43,6 +43,7 @@ class Step3Goal extends ConsumerWidget {
                 case 'work': localizedLabel = s.goalWork; localizedDesc = s.goalDescWork; break;
                 case 'education': localizedLabel = s.goalEducation; localizedDesc = s.goalDescEducation; break;
                 case 'personal': localizedLabel = s.goalPersonal; localizedDesc = s.goalDescPersonal; break;
+                case 'visa_exam': localizedLabel = s.goalVisaExam; localizedDesc = s.goalDescVisaExam; break;
                 case 'travel':
                 default: localizedLabel = s.goalTravel; localizedDesc = s.goalDescTravel; break;
               }

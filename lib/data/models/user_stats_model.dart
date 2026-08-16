@@ -8,6 +8,7 @@ int wordsPerSession(int dailyMinutes) {
 class UserStatsModel {
   final int streakCount;
   final String? lastActivityDate;
+  final String? lastResetDate;
   final int totalXP;
   final int todayWordsLearned;
   final int todayGoal;
@@ -15,6 +16,7 @@ class UserStatsModel {
   const UserStatsModel({
     required this.streakCount,
     this.lastActivityDate,
+    this.lastResetDate,
     required this.totalXP,
     required this.todayWordsLearned,
     required this.todayGoal,
@@ -23,6 +25,7 @@ class UserStatsModel {
   factory UserStatsModel.empty({int dailyMinutes = 10}) => UserStatsModel(
         streakCount: 0,
         lastActivityDate: null,
+        lastResetDate: null,
         totalXP: 0,
         todayWordsLearned: 0,
         todayGoal: wordsPerSession(dailyMinutes),
@@ -32,6 +35,7 @@ class UserStatsModel {
     return UserStatsModel(
       streakCount: map['streakCount'] as int? ?? 0,
       lastActivityDate: map['lastActivityDate'] as String?,
+      lastResetDate: map['lastResetDate'] as String?,
       totalXP: map['totalXP'] as int? ?? 0,
       todayWordsLearned: map['todayWordsLearned'] as int? ?? 0,
       todayGoal: wordsPerSession(dailyMinutes),
@@ -42,6 +46,7 @@ class UserStatsModel {
     return {
       'streakCount': streakCount,
       if (lastActivityDate != null) 'lastActivityDate': lastActivityDate,
+      if (lastResetDate != null) 'lastResetDate': lastResetDate,
       'totalXP': totalXP,
       'todayWordsLearned': todayWordsLearned,
       'todayGoal': todayGoal,
@@ -51,6 +56,7 @@ class UserStatsModel {
   UserStatsModel copyWith({
     int? streakCount,
     String? lastActivityDate,
+    String? lastResetDate,
     int? totalXP,
     int? todayWordsLearned,
     int? todayGoal,
@@ -58,6 +64,7 @@ class UserStatsModel {
     return UserStatsModel(
       streakCount: streakCount ?? this.streakCount,
       lastActivityDate: lastActivityDate ?? this.lastActivityDate,
+      lastResetDate: lastResetDate ?? this.lastResetDate,
       totalXP: totalXP ?? this.totalXP,
       todayWordsLearned: todayWordsLearned ?? this.todayWordsLearned,
       todayGoal: todayGoal ?? this.todayGoal,

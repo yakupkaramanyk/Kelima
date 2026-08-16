@@ -238,7 +238,7 @@ class SettingsScreen extends ConsumerWidget {
                                   'todayGoal': wordsPerSession(option.minutes),
                                 },
                               );
-                          ref.refresh(userLangPrefsProvider.future);
+                          ref.invalidate(userLangPrefsProvider);
                         }
                       },
                       child: Container(
@@ -331,7 +331,8 @@ class _SettingsFlowShellState extends ConsumerState<SettingsFlowShell> {
               data: update,
             );
       }
-      await ref.refresh(userLangPrefsProvider.future);
+      ref.invalidate(userLangPrefsProvider);
+      await ref.read(userLangPrefsProvider.future);
       if (mounted) {
         context.pop();
       }

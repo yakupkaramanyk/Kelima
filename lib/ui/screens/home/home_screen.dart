@@ -636,7 +636,7 @@ class _ProfileSheet extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.settings_rounded, color: AppColors.primary, size: 18),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(AppLocalizations.of(context)?.settings ?? 'Settings',
                       style: const TextStyle(
                           fontSize: 15,

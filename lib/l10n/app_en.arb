@@ -102,11 +102,13 @@
   "goalWork": "Work",
   "goalEducation": "Education",
   "goalPersonal": "Personal Interest",
+  "goalVisaExam": "Spouse Visa Prep",
 
   "goalDescTravel": "Navigate & connect wherever you go",
   "goalDescWork": "Boost your career internationally",
   "goalDescEducation": "Succeed in academia & research",
   "goalDescPersonal": "Explore a passion at your own pace",
+  "goalDescVisaExam": "Preparing for a language exam for a spouse visa to Germany or the Netherlands",
 
   "timeDesc5": "Quick daily habit",
   "timeDesc10": "Steady progress",

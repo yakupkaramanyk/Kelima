@@ -44,10 +44,21 @@ class _WordSessionScreenState extends ConsumerState<WordSessionScreen> {
       );
     }
 
+    // If the SRS session is still being composed (fetching wordProgress from
+    // Firestore), show a spinner. Must come before session.currentWord is
+    // accessed because that getter does words[currentIndex] and throws on [].
+    if (session.isLoading || session.words.isEmpty) {
+      return const Scaffold(
+        backgroundColor: AppColors.surface,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
     // Show summary when complete
     if (session.isComplete) {
       return _SummaryView(session: session, s: s);
     }
+
 
     final word = session.currentWord;
     final progress = session.currentIndex + 1;
