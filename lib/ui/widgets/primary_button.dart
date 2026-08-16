@@ -24,10 +24,10 @@ class PrimaryButton extends StatelessWidget {
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor:
-              onPressed == null && !isLoading ? AppColors.border : AppColors.primary,
-          disabledBackgroundColor: AppColors.border,
+              onPressed == null && !isLoading ? AppColors.brandBorder : AppColors.ink,
+          disabledBackgroundColor: AppColors.brandBorder,
           foregroundColor: Colors.white,
-          disabledForegroundColor: AppColors.textSecondary,
+          disabledForegroundColor: AppColors.ink.withValues(alpha: 0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -47,7 +47,7 @@ class PrimaryButton extends StatelessWidget {
                 children: [
                   Text(
                     label,
-                    style: const TextStyle(
+                    style: AppTypography.body(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       color: Colors.white,

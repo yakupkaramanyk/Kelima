@@ -74,25 +74,25 @@ class _SelectionCardState extends State<SelectionCard>
             constraints: const BoxConstraints(minHeight: 68),
             decoration: BoxDecoration(
               color: widget.isSelected
-                  ? AppColors.primaryLight
+                  ? AppColors.sageLight
                   : _hovering
-                      ? const Color(0xFFF0F6FF)
-                      : AppColors.cardBg,
+                      ? AppColors.paperAlt
+                      : AppColors.paper,
               border: Border.all(
                 color: widget.isSelected
-                    ? AppColors.primary
+                    ? AppColors.sage
                     : _hovering
-                        ? AppColors.primary.withValues(alpha: 0.35)
-                        : AppColors.border,
+                        ? AppColors.sage.withValues(alpha: 0.35)
+                        : AppColors.brandBorder,
                 width: widget.isSelected ? 2.0 : 1.5,
               ),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
                   color: widget.isSelected
-                      ? AppColors.primary.withValues(alpha: 0.16)
+                      ? AppColors.sage.withValues(alpha: 0.16)
                       : _hovering
-                          ? AppColors.primary.withValues(alpha: 0.08)
+                          ? AppColors.sage.withValues(alpha: 0.08)
                           : Colors.black.withValues(alpha: 0.05),
                   blurRadius: widget.isSelected ? 20 : (_hovering ? 14 : 8),
                   offset: const Offset(0, 3),
@@ -119,22 +119,21 @@ class _SelectionCardState extends State<SelectionCard>
                       children: [
                         Text(
                           widget.label,
-                          style: TextStyle(
+                          style: AppTypography.body(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                             color: widget.isSelected
-                                ? AppColors.primary
-                                : AppColors.textPrimary,
+                                ? AppColors.sageDark
+                                : AppColors.ink,
                           ),
                         ),
                         if (widget.sublabel != null) ...[
                           const SizedBox(height: 3),
                           Text(
                             widget.sublabel!,
-                            style: const TextStyle(
+                            style: AppTypography.body(
                               fontSize: 12,
-                              color: AppColors.textSecondary,
-                              height: 1.35,
+                              color: AppColors.ink.withValues(alpha: 0.6),
                             ),
                           ),
                         ],
@@ -149,7 +148,7 @@ class _SelectionCardState extends State<SelectionCard>
                       width: 28,
                       height: 28,
                       decoration: const BoxDecoration(
-                        color: AppColors.accent,
+                        color: AppColors.sage,
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(

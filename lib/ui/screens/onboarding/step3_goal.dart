@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kelima/application/onboarding/onboarding_notifier.dart';
 import 'package:kelima/core/constants/app_constants.dart';
 import 'package:kelima/l10n/app_localizations.dart';
-import 'package:kelima/core/theme/app_theme.dart';
 import 'package:kelima/ui/widgets/primary_button.dart';
 import 'package:kelima/ui/widgets/selection_card.dart';
+import 'package:kelima/ui/widgets/step_header.dart';
 
 
 class Step3Goal extends ConsumerWidget {
@@ -20,10 +20,9 @@ class Step3Goal extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // ── Gradient header ───────────────────────────────────────
-        _StepHeader(
+        // ── Step header ───────────────────────────────────────────
+        StepHeader(
           emoji: '🎯',
-          gradColors: const [Color(0xFFFF9A56), Color(0xFFFF6B35)],
           title: s.onbGoalTitle,
           subtitle: s.onbGoalSubtitle,
         ),
@@ -74,78 +73,3 @@ class Step3Goal extends ConsumerWidget {
   }
 }
 
-class _StepHeader extends StatelessWidget {
-  final String emoji;
-  final List<Color> gradColors;
-  final String title;
-  final String subtitle;
-
-  const _StepHeader({
-    required this.emoji,
-    required this.gradColors,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: double.infinity,
-          height: 124,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: gradColors,
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius:
-                const BorderRadius.vertical(bottom: Radius.circular(28)),
-          ),
-          child: Center(
-            child: Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.22),
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(emoji, style: const TextStyle(fontSize: 36)),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
-                  height: 1.2,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  fontSize: 14,
-                  color: AppColors.textSecondary,
-                  height: 1.45,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
