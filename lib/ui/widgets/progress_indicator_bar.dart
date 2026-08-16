@@ -24,19 +24,17 @@ class OnboardingProgressBar extends StatelessWidget {
           children: [
             Text(
               s.stepOf(currentStep.toString(), AppConstants.totalOnboardingSteps.toString()),
-              style: const TextStyle(
+              style: AppTypography.mono(
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textSecondary,
-                letterSpacing: 0.5,
+                color: AppColors.ink.withValues(alpha: 0.6),
               ),
             ),
             Text(
               '${((currentStep / AppConstants.totalOnboardingSteps) * 100).round()}%',
-              style: const TextStyle(
+              style: AppTypography.mono(
                 fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: AppColors.primary,
+                fontWeight: FontWeight.w600,
+                color: AppColors.amberDark,
               ),
             ),
           ],
@@ -48,9 +46,9 @@ class OnboardingProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: currentStep / AppConstants.totalOnboardingSteps,
             minHeight: 6,
-            backgroundColor: AppColors.border,
+            backgroundColor: AppColors.brandBorder,
             valueColor:
-                const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                const AlwaysStoppedAnimation<Color>(AppColors.amber),
           ),
         ),
       ],

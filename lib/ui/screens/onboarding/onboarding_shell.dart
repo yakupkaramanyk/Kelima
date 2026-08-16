@@ -29,7 +29,7 @@ class OnboardingShell extends ConsumerWidget {
     final s = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: AppColors.surface,
+      backgroundColor: AppColors.paper,
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -55,33 +55,9 @@ class OnboardingShell extends ConsumerWidget {
                           // Kelima logo/wordmark
                           Row(
                             children: [
-                              Container(
-                                width: 28,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [AppColors.primary, AppColors.accent],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: const Icon(
-                                  Icons.auto_stories_rounded,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                              ),
+                              const _BracketMark(size: 26, color: AppColors.ink),
                               const SizedBox(width: 8),
-                              const Text(
-                                'kelima',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.textPrimary,
-                                  letterSpacing: -0.3,
-                                ),
-                              ),
+                              Text('kelima', style: AppTypography.display(fontSize: 20, color: AppColors.ink)),
                             ],
                           ),
                         ],
@@ -141,21 +117,21 @@ class _BackButton extends StatelessWidget {
         height: 36,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: AppColors.cardBg,
+          color: AppColors.paper,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.border, width: 1.5),
+          border: Border.all(color: AppColors.brandBorder, width: 1.5),
         ),
         child: Row(
           children: [
-            const Icon(Icons.arrow_back_ios_new_rounded,
-                size: 14, color: AppColors.textSecondary),
+            Icon(Icons.arrow_back_ios_new_rounded,
+                size: 14, color: AppColors.ink.withValues(alpha: 0.7)),
             const SizedBox(width: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: AppTypography.body(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                color: AppColors.textSecondary,
+                color: AppColors.ink.withValues(alpha: 0.7),
               ),
             ),
           ],
@@ -164,3 +140,53 @@ class _BackButton extends StatelessWidget {
     );
   }
 }
+
+class _BracketMark extends StatelessWidget {
+  final double size;
+  final Color color;
+  const _BracketMark({this.size = 28, this.color = AppColors.ink});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(painter: _BracketPainter(color: color)),
+    );
+  }
+}
+
+class _BracketPainter extends CustomPainter {
+  final Color color;
+  _BracketPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.11
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    final left = Path()
+      ..moveTo(size.width * 0.40, size.height * 0.22)
+      ..lineTo(size.width * 0.28, size.height * 0.22)
+      ..lineTo(size.width * 0.28, size.height * 0.78)
+      ..lineTo(size.width * 0.40, size.height * 0.78);
+
+    final right = Path()
+      ..moveTo(size.width * 0.60, size.height * 0.22)
+      ..lineTo(size.width * 0.72, size.height * 0.22)
+      ..lineTo(size.width * 0.72, size.height * 0.78)
+      ..lineTo(size.width * 0.60, size.height * 0.78);
+
+    canvas.drawPath(left, paint);
+    canvas.drawPath(right, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _BracketPainter oldDelegate) =>
+      oldDelegate.color != color;
+}
+
