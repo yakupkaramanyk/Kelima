@@ -8,6 +8,7 @@ import 'package:kelima/ui/screens/onboarding/step2_target_lang.dart';
 import 'package:kelima/ui/screens/onboarding/step3_goal.dart';
 import 'package:kelima/ui/screens/onboarding/step4_time.dart';
 import 'package:kelima/ui/screens/onboarding/step5_create_account.dart';
+import 'package:kelima/ui/widgets/bracket_mark.dart';
 import 'package:kelima/ui/widgets/progress_indicator_bar.dart';
 
 class OnboardingShell extends ConsumerWidget {
@@ -55,7 +56,7 @@ class OnboardingShell extends ConsumerWidget {
                           // Kelima logo/wordmark
                           Row(
                             children: [
-                              const _BracketMark(size: 26, color: AppColors.ink),
+                              const BracketMark(size: 26, color: AppColors.ink),
                               const SizedBox(width: 8),
                               Text('kelima', style: AppTypography.display(fontSize: 20, color: AppColors.ink)),
                             ],
@@ -141,52 +142,4 @@ class _BackButton extends StatelessWidget {
   }
 }
 
-class _BracketMark extends StatelessWidget {
-  final double size;
-  final Color color;
-  const _BracketMark({this.size = 28, this.color = AppColors.ink});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: size,
-      height: size,
-      child: CustomPaint(painter: _BracketPainter(color: color)),
-    );
-  }
-}
-
-class _BracketPainter extends CustomPainter {
-  final Color color;
-  _BracketPainter({required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.11
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round;
-
-    final left = Path()
-      ..moveTo(size.width * 0.40, size.height * 0.22)
-      ..lineTo(size.width * 0.28, size.height * 0.22)
-      ..lineTo(size.width * 0.28, size.height * 0.78)
-      ..lineTo(size.width * 0.40, size.height * 0.78);
-
-    final right = Path()
-      ..moveTo(size.width * 0.60, size.height * 0.22)
-      ..lineTo(size.width * 0.72, size.height * 0.22)
-      ..lineTo(size.width * 0.72, size.height * 0.78)
-      ..lineTo(size.width * 0.60, size.height * 0.78);
-
-    canvas.drawPath(left, paint);
-    canvas.drawPath(right, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _BracketPainter oldDelegate) =>
-      oldDelegate.color != color;
-}
 

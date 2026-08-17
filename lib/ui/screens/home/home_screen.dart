@@ -9,6 +9,7 @@ import 'package:kelima/core/theme/app_theme.dart';
 import 'package:kelima/data/repositories/auth_repository.dart';
 import 'package:kelima/application/stats/user_stats_provider.dart';
 import 'package:kelima/data/models/user_stats_model.dart';
+import 'package:kelima/ui/widgets/bracket_mark.dart';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -70,11 +71,7 @@ class HomeScreen extends ConsumerWidget {
                 // ── Gradient header ──────────────────────────────────
                 Container(
                   decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xFF4A90D9), Color(0xFF38C9AC)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: AppColors.ink,
                     borderRadius: BorderRadius.vertical(
                         bottom: Radius.circular(32)),
                   ),
@@ -85,23 +82,13 @@ class HomeScreen extends ConsumerWidget {
                       // Logo row + avatar
                       Row(
                         children: [
-                          Container(
-                            width: 38,
-                            height: 38,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.25),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Icon(Icons.auto_stories_rounded,
-                                color: Colors.white, size: 20),
-                          ),
+                          const BracketMark(size: 26, color: Colors.white),
                           const SizedBox(width: 10),
-                          const Text('kelima',
-                              style: TextStyle(
+                          Text('kelima',
+                              style: AppTypography.display(
                                   fontSize: 20,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.white,
-                                  letterSpacing: -0.4)),
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white)),
                           const Spacer(),
                           GestureDetector(
                             onTap: () => _showProfileSheet(context, ref),
@@ -124,17 +111,15 @@ class HomeScreen extends ConsumerWidget {
                       const SizedBox(height: 24),
                       // Greeting
                       Text(_greeting(s),
-                          style: TextStyle(
+                          style: AppTypography.body(
                               fontSize: 14,
-                              color: Colors.white.withValues(alpha: 0.8),
-                              fontWeight: FontWeight.w400)),
+                              color: Colors.white.withValues(alpha: 0.8))),
                       const SizedBox(height: 4),
                       Text(name,
-                          style: const TextStyle(
+                          style: AppTypography.display(
                               fontSize: 28,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white,
-                              height: 1.1)),
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white).copyWith(height: 1.1)),
                       const SizedBox(height: 12),
                       // Target language chip
                       Container(
@@ -239,15 +224,11 @@ class _StreakCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF4A90D9), Color(0xFF2E6FB5)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: AppColors.amber,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withValues(alpha: 0.3),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),
@@ -262,13 +243,13 @@ class _StreakCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(s.dailyStreak,
-                      style: const TextStyle(
-                          color: Colors.white70,
+                      style: TextStyle(
+                          color: AppColors.ink.withValues(alpha: 0.7),
                           fontSize: 12,
                           fontWeight: FontWeight.w500)),
                   Text('🔥 ${s.dayStreak(streakDays)}',
                       style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.ink,
                           fontSize: 20,
                           fontWeight: FontWeight.w800)),
                 ],
@@ -287,7 +268,7 @@ class _StreakCard extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white.withValues(alpha: 0.6))),
+                          color: AppColors.ink.withValues(alpha: 0.6))),
                   const SizedBox(height: 8),
                   Container(
                     width: 48,
@@ -299,7 +280,7 @@ class _StreakCard extends StatelessWidget {
                           : Colors.transparent,
                       border: isActive
                           ? null
-                          : Border.all(color: Colors.white.withValues(alpha: 0.2), width: 1.5),
+                          : Border.all(color: AppColors.ink.withValues(alpha: 0.25), width: 1.5),
                     ),
                     child: Center(
                       child: isActive
@@ -315,7 +296,7 @@ class _StreakCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(s.keepLearning,
               style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.7),
+                  color: AppColors.ink.withValues(alpha: 0.6),
                   fontSize: 12)),
         ],
       ),
@@ -340,9 +321,9 @@ class _ProgressCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: AppColors.cardBg,
+        color: AppColors.paper,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.brandBorder),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.08),
@@ -361,12 +342,12 @@ class _ProgressCard extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary)),
+                      color: AppColors.ink)),
               Text(s.wordsOf(displayedWords, wordsGoal),
                   style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.primary)),
+                      color: AppColors.amberDark)),
             ],
           ),
           const SizedBox(height: 10),
@@ -375,15 +356,15 @@ class _ProgressCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: progress,
               minHeight: 8,
-              backgroundColor: AppColors.border,
+              backgroundColor: AppColors.brandBorder,
               valueColor:
-                  const AlwaysStoppedAnimation<Color>(AppColors.accent),
+                  const AlwaysStoppedAnimation<Color>(AppColors.amber),
             ),
           ),
           const SizedBox(height: 8),
           Text(s.startFirstSession,
-              style: const TextStyle(
-                  fontSize: 12, color: AppColors.textSecondary)),
+              style: TextStyle(
+                  fontSize: 12, color: AppColors.ink.withValues(alpha: 0.6))),
         ],
       ),
     );
@@ -424,11 +405,7 @@ class _StartLearningBtnState extends State<_StartLearningBtn> {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
           decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              colors: [Color(0xFF4ADE80), Color(0xFF22C55E)],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
+            color: AppColors.ink,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
@@ -447,9 +424,9 @@ class _StartLearningBtnState extends State<_StartLearningBtn> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(widget.label,
-                        style: const TextStyle(
+                        style: AppTypography.body(
                             fontSize: 20,
-                            fontWeight: FontWeight.w800,
+                            fontWeight: FontWeight.w700,
                             color: Colors.white)),
                     const SizedBox(height: 3),
                     Text(widget.subLabel,
