@@ -10,6 +10,7 @@ import 'package:kelima/data/repositories/auth_repository.dart';
 import 'package:kelima/application/stats/user_stats_provider.dart';
 import 'package:kelima/data/models/user_stats_model.dart';
 import 'package:kelima/ui/widgets/bracket_mark.dart';
+import 'package:kelima/ui/widgets/shimmer_loading.dart';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -156,11 +157,25 @@ class HomeScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Streak card
-                      _StreakCard(s: s, stats: stats),
+                      statsAsync.isLoading
+                          ? ShimmerLoading(
+                              child: SkeletonCard(
+                                height: 200,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            )
+                          : _StreakCard(s: s, stats: stats),
                       const SizedBox(height: 14),
 
                       // Progress card
-                      _ProgressCard(s: s, stats: stats),
+                      statsAsync.isLoading
+                          ? ShimmerLoading(
+                              child: SkeletonCard(
+                                height: 120,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                            )
+                          : _ProgressCard(s: s, stats: stats),
                       const SizedBox(height: 24),
 
                       // Section title

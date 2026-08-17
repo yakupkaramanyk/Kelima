@@ -7,6 +7,7 @@ import 'package:kelima/l10n/app_localizations.dart';
 import 'package:kelima/core/theme/app_theme.dart';
 import 'package:kelima/data/models/word_model.dart';
 import 'package:kelima/ui/widgets/word_flip_card.dart';
+import 'package:kelima/ui/widgets/shimmer_loading.dart';
 
 class WordSessionScreen extends ConsumerStatefulWidget {
   const WordSessionScreen({super.key});
@@ -35,22 +36,70 @@ class _WordSessionScreenState extends ConsumerState<WordSessionScreen> {
     debugPrint('🃏 SessionScreen build: targetLang=${session.targetLang}, nativeLang=${session.nativeLang}');
     debugPrint('🃏 PrefsAsync state: ${prefsAsync.runtimeType} / ${prefsAsync.valueOrNull}');
 
-    // If prefs are still loading (Firestore not yet queried), show a spinner
+    // If prefs are still loading (Firestore not yet queried), show a skeleton
     // so we don't flash English words before Dutch loads.
     if (prefsAsync.isLoading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.surface,
-        body: Center(child: CircularProgressIndicator()),
+        body: SafeArea(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ShimmerLoading(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SkeletonBox(width: 40, height: 40, borderRadius: BorderRadius.circular(12)),
+                          const SizedBox(width: 16),
+                          Expanded(child: SkeletonBox(height: 40, borderRadius: BorderRadius.circular(12))),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      const Expanded(child: SkeletonWordCard()),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
 
     // If the SRS session is still being composed (fetching wordProgress from
-    // Firestore), show a spinner. Must come before session.currentWord is
+    // Firestore), show a skeleton. Must come before session.currentWord is
     // accessed because that getter does words[currentIndex] and throws on [].
     if (session.isLoading || session.words.isEmpty) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.surface,
-        body: Center(child: CircularProgressIndicator()),
+        body: SafeArea(
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: ShimmerLoading(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SkeletonBox(width: 40, height: 40, borderRadius: BorderRadius.circular(12)),
+                          const SizedBox(width: 16),
+                          Expanded(child: SkeletonBox(height: 40, borderRadius: BorderRadius.circular(12))),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      const Expanded(child: SkeletonWordCard()),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
 

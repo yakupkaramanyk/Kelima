@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kelima/core/utils/analytics_service.dart';
 import 'package:kelima/data/repositories/auth_repository.dart';
 import 'package:kelima/ui/screens/onboarding/onboarding_shell.dart';
 import 'package:kelima/ui/screens/quiz/quiz_screen.dart';
@@ -48,6 +49,7 @@ class _AuthChangeNotifier extends ChangeNotifier {
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepo = ref.read(authRepositoryProvider);
   final notifier = _AuthChangeNotifier(authRepo.authStateChanges);
+  final analyticsObserver = ref.read(analyticsObserverProvider);
 
   // Clean up the notifier when the provider is disposed
   ref.onDispose(notifier.dispose);
@@ -55,6 +57,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: false,
+    observers: [analyticsObserver],
     // refreshListenable triggers redirect re-evaluation on auth change
     // WITHOUT recreating the GoRouter instance.
     refreshListenable: notifier,

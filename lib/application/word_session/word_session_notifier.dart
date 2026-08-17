@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kelima/application/auth/auth_provider.dart';
 import 'package:kelima/application/auth/user_prefs_provider.dart';
 import 'package:kelima/application/stats/user_stats_provider.dart';
+import 'package:kelima/core/utils/analytics_service.dart';
 import 'package:kelima/data/datasources/mock_words.dart';
 import 'package:kelima/data/models/word_model.dart';
 import 'package:kelima/data/models/user_stats_model.dart';
@@ -24,6 +25,7 @@ class WordSessionState {
   final bool isLoading;
   final String nativeLang;
   final String targetLang;
+  final DateTime? sessionStartTime;
 
   const WordSessionState({
     required this.words,
@@ -33,6 +35,7 @@ class WordSessionState {
     this.isLoading = false,
     this.nativeLang = 'tr',
     this.targetLang = 'nl', // default to Dutch as most likely target
+    this.sessionStartTime,
   });
 
   WordModel get currentWord => words[currentIndex];
@@ -49,6 +52,7 @@ class WordSessionState {
     bool? isLoading,
     String? nativeLang,
     String? targetLang,
+    DateTime? sessionStartTime,
   }) =>
       WordSessionState(
         words: words ?? this.words,
@@ -58,6 +62,7 @@ class WordSessionState {
         isLoading: isLoading ?? this.isLoading,
         nativeLang: nativeLang ?? this.nativeLang,
         targetLang: targetLang ?? this.targetLang,
+        sessionStartTime: sessionStartTime ?? this.sessionStartTime,
       );
 }
 
@@ -66,8 +71,9 @@ class WordSessionState {
 class WordSessionNotifier extends StateNotifier<WordSessionState> {
   final Ref _ref;
   final UserStatsService _statsService;
+  final AnalyticsService _analytics;
 
-  WordSessionNotifier(this._ref, this._statsService)
+  WordSessionNotifier(this._ref, this._statsService, this._analytics)
       : super(WordSessionState(
           words: const [],
           currentIndex: 0,
@@ -173,6 +179,8 @@ class WordSessionNotifier extends StateNotifier<WordSessionState> {
         if (composed.length >= count) break;
       }
 
+      final startTime = DateTime.now();
+      
       state = state.copyWith(
         words: composed,
         ratings: List.filled(composed.length, null),
@@ -180,6 +188,13 @@ class WordSessionNotifier extends StateNotifier<WordSessionState> {
         currentIndex: 0,
         targetLang: targetLang,
         nativeLang: nativeLang,
+        sessionStartTime: startTime,
+      );
+
+      // Track session start
+      _analytics.logSessionStart(
+        targetLang: targetLang,
+        wordCount: composed.length,
       );
     } catch (e) {
       // Any error → fall back to random so the user is never stuck on spinner.
@@ -222,6 +237,20 @@ class WordSessionNotifier extends StateNotifier<WordSessionState> {
     if (state.isLastWord) {
       state = state.copyWith(words: newWords, ratings: newRatings, isComplete: true);
       await _statsService.completeSession();
+
+      // Track session completion
+      final durationSeconds = state.sessionStartTime != null
+          ? DateTime.now().difference(state.sessionStartTime!).inSeconds
+          : 0;
+
+      await _analytics.logSessionComplete(
+        targetLang: state.targetLang,
+        wordsLearned: state.words.length,
+        easyCount: state.easyCount,
+        hardCount: state.hardCount,
+        forgotCount: state.forgotCount,
+        durationSeconds: durationSeconds,
+      );
     } else {
       state = state.copyWith(
           words: newWords, ratings: newRatings, currentIndex: idx + 1);
@@ -287,6 +316,7 @@ final wordSessionProvider =
     ref.keepAlive();
 
     final statsService = ref.read(userStatsServiceProvider);
-    return WordSessionNotifier(ref, statsService);
+    final analytics = ref.read(analyticsServiceProvider);
+    return WordSessionNotifier(ref, statsService, analytics);
   },
 );

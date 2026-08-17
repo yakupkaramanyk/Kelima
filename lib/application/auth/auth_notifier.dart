@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kelima/core/utils/analytics_service.dart';
 import 'package:kelima/data/repositories/auth_repository.dart';
 import 'package:kelima/data/repositories/user_repository.dart';
 import 'package:kelima/data/models/onboarding_data.dart';
@@ -9,6 +10,7 @@ final authNotifierProvider =
   return AuthNotifier(
     ref.read(authRepositoryProvider),
     ref.read(userRepositoryProvider),
+    ref.read(analyticsServiceProvider),
   );
 });
 
@@ -47,8 +49,9 @@ class AuthNotifierState {
 class AuthNotifier extends StateNotifier<AuthNotifierState> {
   final AuthRepository _authRepo;
   final UserRepository _userRepo;
+  final AnalyticsService _analytics;
 
-  AuthNotifier(this._authRepo, this._userRepo)
+  AuthNotifier(this._authRepo, this._userRepo, this._analytics)
       : super(const AuthNotifierState());
 
   /// Sign up + save onboarding data to Firestore
@@ -72,6 +75,26 @@ class AuthNotifier extends StateNotifier<AuthNotifierState> {
       await _userRepo.saveOnboardingData(
         uid: uid,
         data: onboardingData,
+      );
+
+      // Track signup
+      await _analytics.logSignUp(method: 'email');
+
+      // Track onboarding completion
+      await _analytics.logOnboardingComplete(
+        nativeLang: onboardingData.nativeLanguage,
+        targetLang: onboardingData.targetLanguage,
+        goal: onboardingData.learningGoal,
+        dailyMinutes: onboardingData.dailyMinutes,
+      );
+
+      // Set user properties for segmentation
+      await _analytics.setUserProperties(
+        userId: uid,
+        nativeLang: onboardingData.nativeLanguage,
+        targetLang: onboardingData.targetLanguage,
+        learningGoal: onboardingData.learningGoal,
+        dailyMinutes: onboardingData.dailyMinutes,
       );
 
       state = state.copyWith(status: AuthStatus.success);
@@ -111,6 +134,9 @@ class AuthNotifier extends StateNotifier<AuthNotifierState> {
           data: onboardingData,
         );
       }
+
+      // Track login
+      await _analytics.logLogin(method: 'email');
       
       state = state.copyWith(status: AuthStatus.success);
       return true;

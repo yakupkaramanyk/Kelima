@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kelima/application/onboarding/onboarding_notifier.dart';
 import 'package:kelima/core/theme/app_theme.dart';
+import 'package:kelima/core/utils/analytics_service.dart';
 import 'package:kelima/l10n/app_localizations.dart';
 import 'package:kelima/ui/screens/onboarding/step1_native_lang.dart';
 import 'package:kelima/ui/screens/onboarding/step2_target_lang.dart';
@@ -11,8 +12,22 @@ import 'package:kelima/ui/screens/onboarding/step5_create_account.dart';
 import 'package:kelima/ui/widgets/bracket_mark.dart';
 import 'package:kelima/ui/widgets/progress_indicator_bar.dart';
 
-class OnboardingShell extends ConsumerWidget {
+class OnboardingShell extends ConsumerStatefulWidget {
   const OnboardingShell({super.key});
+
+  @override
+  ConsumerState<OnboardingShell> createState() => _OnboardingShellState();
+}
+
+class _OnboardingShellState extends ConsumerState<OnboardingShell> {
+  @override
+  void initState() {
+    super.initState();
+    // Track onboarding start on first load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(analyticsServiceProvider).logOnboardingStart();
+    });
+  }
 
   static const List<Widget> _steps = [
     Step1NativeLang(),
@@ -23,7 +38,7 @@ class OnboardingShell extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final state = ref.watch(onboardingNotifierProvider);
     final notifier = ref.read(onboardingNotifierProvider.notifier);
     final currentStep = state.currentStep;
